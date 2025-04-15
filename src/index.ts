@@ -103,7 +103,7 @@ function hookNextNodeServer(this: NextNodeServer) {
     const pageModule = await require(builtPagePath);
 
     // Ensure that the websocket handler callback exists on this page
-    const handler = pageModule.socket as NextWebSocketHandler | undefined;
+    const handler = (pageModule.socket ?? pageModule.routeModule?.userland?.socket) as NextWebSocketHandler | undefined;
     if (!handler) return;
 
     // Call the provided websocket handler
