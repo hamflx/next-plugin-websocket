@@ -16,6 +16,8 @@ main();
 async function patchNextNodeServer() {
   const filePath = require.resolve("next/dist/server/next-server");
   const content = await fs.readFile(filePath, "utf-8");
+  if (content.includes('next-plugin-websocket')) return;
+
   const ast = parser.parse(content);
 
   const classDeclaration = ast.program.body.find(
@@ -40,6 +42,8 @@ async function patchNextNodeServer() {
 async function patchWebpackConfig() {
   const filePath = require.resolve("next/dist/build/webpack-config");
   const content = await fs.readFile(filePath, "utf-8");
+  if (content.includes('next-plugin-websocket')) return;
+
   const ast = parser.parse(content);
 
   const functionDeclaration = ast.program.body.find(
@@ -67,6 +71,7 @@ async function patchWebpackConfig() {
 async function patchStandaloneServer() {
   const filePath = require.resolve("next/dist/build/utils");
   const content = await fs.readFile(filePath, "utf-8");
+  if (content.includes('httpServer: server,')) return;
 
   const lines = content.split("\n");
   const index = lines.findIndex((line) => line.endsWith("new NextServer({"));
