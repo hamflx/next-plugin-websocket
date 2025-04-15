@@ -4,7 +4,7 @@ import template from "@babel/template";
 import * as t from "@babel/types";
 import fs from "fs/promises";
 
-const mod = template.expression.ast`require("next-plugin-websocket")`;
+const mod = template.expression.ast`require("@hamflx/next-plugin-websocket")`;
 
 async function main() {
   await patchNextNodeServer();
@@ -70,6 +70,8 @@ async function patchStandaloneServer() {
 
   const lines = content.split("\n");
   const index = lines.findIndex((line) => line.endsWith("new NextServer({"));
+  if (index === -1) return;
+
   const indent = lines[index + 1]?.match(/^\W*/)?.[0]!;
 
   lines.splice(index + 1, 0, `${indent}httpServer: server,`);

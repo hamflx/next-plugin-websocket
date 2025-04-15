@@ -17,7 +17,7 @@ Add WebSocket support to Next.js API routes
 ## Installation
 
 ```sh
-yarn add next-plugin-websocket
+yarn add @hamflx/next-plugin-websocket
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ Export a `socket` handler function from a Next.js API route. The first argument 
 
 ```ts
 import { NextApiHandler } from "next";
-import { NextWebSocketHandler } from "next-plugin-websocket";
+import { NextWebSocketHandler } from "@hamflx/next-plugin-websocket";
 
 export const socket: NextWebSocketHandler = (client, req) => {
   console.log("Client connected");
@@ -57,7 +57,7 @@ export default handler;
 import { appRouter } from "@/server/routers/_app";
 import { createNextApiHandler } from "@trpc/server/adapters/next";
 import { applyWSSHandler } from "@trpc/server/adapters/ws";
-import { NextWebSocketHandler } from "next-plugin-websocket";
+import { NextWebSocketHandler } from "@hamflx/next-plugin-websocket";
 import { WebSocketServer } from "ws";
 
 export const socket: NextWebSocketHandler = (client, req) => {
