@@ -78,7 +78,16 @@ function hookNextNodeServer(this: NextNodeServer) {
     if (!isPageFound) return false;
 
     // Ensure that the page gets built, if it exists
-    await this.ensureApiPage(page);
+    if (typeof this.ensureApiPage === "function") {
+      await this.ensureApiPage(page);
+    } else if (typeof this.ensureEdgeFunction === "function") {
+      await this.ensureEdgeFunction({
+        page,
+        appPaths: null,
+      });
+    } else {
+      throw new Error("ensureApiPage or ensureEdgeFunction must be provided");
+    }
 
     // Get the path of the built page. Will throw an error if the page doesn't
     // exist. This is fine to ignore, as it just falls into one of the many
