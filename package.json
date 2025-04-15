@@ -1,6 +1,6 @@
 {
   "name": "@hamflx/next-plugin-websocket",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Add WebSocket support to Next.js API routes",
   "main": "dist/index.js",
   "repository": "github.com/hamflx/next-plugin-websocket",
